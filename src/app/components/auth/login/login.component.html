@@ -1,0 +1,51 @@
+<div class="container">
+  <section>
+    <form
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayoutGap="30px"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      style="margin-top: 20px;"
+    >
+      <h2>FitnessTracker<span style="color: rgb(72, 0, 139);"> Login</span></h2>
+      <!-- EMAIL ADDRESS -->
+      <mat-form-field>
+        <input
+          type="email"
+          matInput
+          placeholder="Email address"
+          name="email"
+          formControlName="email"
+        />
+        <mat-error>Please enter a valid email address</mat-error>
+      </mat-form-field>
+
+      <!-- PASSWORD -->
+      <mat-form-field>
+        <input
+          type="password"
+          matInput
+          placeholder="Password"
+          name="password"
+          formControlName="password"
+        />
+
+        <mat-error>Please enter a password</mat-error>
+      </mat-form-field>
+
+      <!-- Submit - disabled if form is invalid -replaced with spinner when isLoading=true -->
+      <button
+        *ngIf="!(isLoading$ | async)"
+        type="submit"
+        [disabled]="loginForm.invalid"
+        mat-raised-button
+        color="primary"
+      >
+        Login
+      </button>
+      <!-- Show spinner when loading=true -->
+      <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
+    </form>
+  </section>
+</div>

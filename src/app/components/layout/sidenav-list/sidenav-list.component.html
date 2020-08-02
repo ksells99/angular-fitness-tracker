@@ -1,0 +1,32 @@
+<mat-nav-list>
+  <!-- Only show certain list items depending on auth status -->
+  <a
+    *ngIf="!(isAuth$ | async)"
+    mat-list-item
+    routerLink="/sign-up"
+    (click)="onClose()"
+    ><mat-icon>person_add_alt_1</mat-icon
+    ><span class="sidenav-text">Sign Up</span></a
+  >
+  <a
+    *ngIf="!(isAuth$ | async)"
+    mat-list-item
+    routerLink="/login"
+    (click)="onClose()"
+    ><mat-icon>input</mat-icon><span class="sidenav-text">Login</span></a
+  >
+  <a
+    *ngIf="isAuth$ | async"
+    mat-list-item
+    routerLink="/training"
+    (click)="onClose()"
+    ><mat-icon>fitness_center</mat-icon
+    ><span class="sidenav-text">My Training</span></a
+  >
+  <mat-list-item *ngIf="isAuth$ | async" class="logout-link">
+    <button mat-icon-button (click)="onLogout()">
+      <mat-icon>backspace</mat-icon>
+      <span class="sidenav-text">Logout</span>
+    </button>
+  </mat-list-item>
+</mat-nav-list>

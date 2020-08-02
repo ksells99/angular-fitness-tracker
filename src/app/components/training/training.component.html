@@ -1,0 +1,11 @@
+<!-- Only show new/past training tab if no ongoing training -->
+<mat-tab-group *ngIf="!(ongoingTraining$ | async)">
+  <mat-tab label="New Exercise">
+    <app-new-training></app-new-training>
+  </mat-tab>
+  <mat-tab label="Past Exercises"
+    ><app-training-history></app-training-history
+  ></mat-tab>
+</mat-tab-group>
+<!-- Only show current training component if one is ongoing -->
+<app-current-training *ngIf="ongoingTraining$ | async"></app-current-training>

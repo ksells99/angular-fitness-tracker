@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  <!-- Hamburger sidenav menu - only show <599px -->
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/"
+      ><mat-icon style="vertical-align: middle;">timeline</mat-icon>
+      Fitness<span style="font-weight: lighter;">Tracker</span></a
+    >
+  </div>
+  <!-- Toolbar links - hidden <599px-->
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="10px" class="nav-items">
+      <!-- Nav links - show certain links depending on authentication status -->
+      <li class="nav-link" *ngIf="!(isAuth$ | async)">
+        <a routerLink="/login"
+          ><mat-icon class="toolbar-icon">input</mat-icon>Login</a
+        >
+      </li>
+      <li class="nav-link sign-up" *ngIf="!(isAuth$ | async)">
+        <a routerLink="/sign-up"
+          ><mat-icon class="toolbar-icon">person_add_alt_1</mat-icon>Sign Up</a
+        >
+      </li>
+
+      <li class="nav-link training" *ngIf="isAuth$ | async">
+        <a routerLink="/training"
+          ><mat-icon class="toolbar-icon">fitness_center</mat-icon>My
+          Training</a
+        >
+      </li>
+      <li class="nav-link" *ngIf="isAuth$ | async" (click)="onLogout()">
+        <a style="cursor: pointer;"
+          ><mat-icon class="toolbar-icon">backspace</mat-icon>Logout</a
+        >
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>

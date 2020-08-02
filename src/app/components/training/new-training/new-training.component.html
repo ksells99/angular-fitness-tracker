@@ -1,0 +1,55 @@
+<section class="new-training" fxLayout fxLayoutAlign="center center">
+  <!-- When form submitted, pass in form data -->
+  <form (ngSubmit)="onStartTraining(f)" #f="ngForm">
+    <mat-card fxFlex.xs="100%" fxFlex="400px">
+      <mat-card-title fxLayoutAlign="center"
+        >Start a new workout</mat-card-title
+      >
+      <mat-card-content fxLayoutAlign="center">
+        <!-- Only show drop-down when loading=false & there are exercise types-->
+        <mat-form-field
+          *ngIf="!(isLoading$ | async) && (trainingTypes$ | async)"
+        >
+          <mat-select
+            placeholder="Select training"
+            ngModel
+            name="exercise"
+            required
+          >
+            <!-- Map through training types and create drop-down entry for all -->
+
+            <mat-option
+              *ngFor="let type of trainingTypes$ | async"
+              [value]="type.id"
+              >{{ type.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <!-- Show spinner only when loading=true -->
+        <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
+      </mat-card-content>
+      <!-- Only show start button if loading=false -->
+      <mat-card-actions fxLayoutAlign="center" *ngIf="!(isLoading$ | async)">
+        <button
+          *ngIf="trainingTypes$ | async"
+          [disabled]="f.invalid"
+          mat-button
+          type="submit"
+          color="primary"
+        >
+          Start
+        </button>
+        <!-- Retry button - only shown if trainingTypes=null -->
+        <button
+          *ngIf="!(trainingTypes$ | async)"
+          (click)="fetchExercises()"
+          mat-button
+          type="button"
+          color="primary"
+        >
+          Try Again
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</section>

@@ -1,0 +1,69 @@
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="90%">
+    <!-- Call filter function when user types - pass in value -->
+    <input
+      matInput
+      type="text"
+      (keyup)="filter($event.target.value)"
+      placeholder="Filter..."
+    />
+  </mat-form-field>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+    <mat-cell *matCellDef="let exercise">{{
+      exercise.date.toDate() | date
+    }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let exercise"
+      ><span style="font-weight: 500;">{{ exercise.name }}</span></mat-cell
+    >
+  </ng-container>
+
+  <ng-container matColumnDef="calories">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Calories Burnt</mat-header-cell
+    >
+    <mat-cell *matCellDef="let exercise">{{
+      exercise.calories | number: "1.1-1"
+    }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="duration">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Duration</mat-header-cell
+    >
+    <mat-cell *matCellDef="let exercise"
+      >{{ exercise.duration | number: "1.1-1" }}s</mat-cell
+    >
+  </ng-container>
+
+  <ng-container matColumnDef="state">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+    <mat-cell
+      *matCellDef="let exercise"
+      [ngClass]="
+        exercise.state == 'completed' ? 'completedColour' : 'cancelledColour'
+      "
+      ><mat-icon class="status" *ngIf="exercise.state == 'completed'"
+        >done</mat-icon
+      ><mat-icon class="status" *ngIf="exercise.state == 'cancelled'"
+        >clear</mat-icon
+      >{{ exercise.state | titlecase }}</mat-cell
+    >
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<mat-paginator
+  #paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[10, 20, 30]"
+></mat-paginator>

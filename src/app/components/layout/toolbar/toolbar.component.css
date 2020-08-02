@@ -1,0 +1,59 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover,
+a:active {
+  color: lightgray;
+}
+
+.nav-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  margin-left: 30px;
+  font-weight: lighter;
+  font-size: medium;
+}
+
+.toolbar-icon {
+  vertical-align: middle;
+  margin-bottom: 3px;
+  margin-right: 8px;
+}
+
+.sign-up {
+  padding: 0px;
+  background-color: white;
+
+  border-radius: 10px;
+}
+
+.sign-up:hover {
+  background-color: lightgray;
+}
+
+.sign-up a {
+  color: black;
+  padding: 0px 10px;
+}
+
+.training {
+  padding: 0px;
+  background-color: white;
+
+  border-radius: 10px;
+}
+
+.training:hover {
+  background-color: lightgray;
+}
+
+.training a {
+  color: black;
+  padding: 0px 10px;
+}

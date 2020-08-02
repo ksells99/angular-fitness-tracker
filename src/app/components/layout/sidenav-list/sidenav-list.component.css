@@ -1,0 +1,28 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover,
+a:active {
+  color: rgb(72, 0, 139);
+  font-weight: 500;
+}
+
+.logout-link:hover {
+  color: rgb(72, 0, 139);
+}
+
+.sidenav-text {
+  display: inline-block;
+  padding-left: 6px;
+}
+
+.mat-icon-button {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.mat-icon-button:hover {
+  font-weight: 500;
+}
