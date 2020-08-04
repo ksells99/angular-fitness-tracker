@@ -15,7 +15,6 @@ import { Observable } from 'rxjs';
 export class NewTrainingComponent implements OnInit {
   trainingTypes$: Observable<Exercise[]>;
   isLoading$: Observable<boolean>;
-  // private exerciseSubscription: Subscription;
 
   // Inject service & NGRX store
   constructor(
@@ -28,14 +27,6 @@ export class NewTrainingComponent implements OnInit {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.trainingTypes$ = this.store.select(fromRoot.getTrainingTypes);
 
-    // this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
-    //   (exercises) => {
-    //     this.trainingTypes = exercises;
-    //     // // Set loading to false once exercises obtained
-    //     // this.isLoading = false;
-    //   }
-    // );
-
     this.fetchExercises();
   }
   // When new training started - form data is passed in, then pass exercise to start function on service
@@ -46,11 +37,4 @@ export class NewTrainingComponent implements OnInit {
   fetchExercises() {
     this.trainingService.getAvailableExercises();
   }
-
-  // ngOnDestroy() {
-  //   // Unsubscribe from obs. when page destroyed
-  //   if (this.exerciseSubscription) {
-  //     this.exerciseSubscription.unsubscribe();
-  //   }
-  // }
 }

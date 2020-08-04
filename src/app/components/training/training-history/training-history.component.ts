@@ -16,7 +16,6 @@ import * as fromRoot from '../../../app.reducer';
 export class TrainingHistoryComponent implements OnInit, AfterViewInit {
   displayedColumns = ['date', 'name', 'calories', 'duration', 'state'];
   dataSource = new MatTableDataSource<Exercise>();
-  // private exChangedSubscription: Subscription;
 
   // Get MatSort from HTML template - store in sort variable
   @ViewChild(MatSort) sort: MatSort;
@@ -36,10 +35,6 @@ export class TrainingHistoryComponent implements OnInit, AfterViewInit {
       .select(fromRoot.getFinishedExercises)
       .subscribe((exercises: Exercise[]) => (this.dataSource.data = exercises));
 
-    // this.exChangedSubscription = this.trainingService.finishedExercisesChanged.subscribe(
-    //   (exercises: Exercise[]) => (this.dataSource.data = exercises)
-    // );
-
     // Call function on service to trigger history to be obtained from FB
     this.trainingService.getExerciseHistory();
   }
@@ -55,10 +50,4 @@ export class TrainingHistoryComponent implements OnInit, AfterViewInit {
   filter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  // ngOnDestroy() {
-  //   if (this.exChangedSubscription) {
-  //     this.exChangedSubscription.unsubscribe();
-  //   }
-  // }
 }

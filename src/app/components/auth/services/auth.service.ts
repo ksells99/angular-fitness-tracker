@@ -14,11 +14,6 @@ import * as Auth from '../../auth/auth.actions';
 // Need @Injectable in order to import another service into this service
 @Injectable()
 export class AuthService {
-  // // Subject for when auth status changes - picked up by navbar/sidebar to change links
-  // authChange = new Subject<boolean>();
-
-  // private isAuthenticated: boolean = false;
-
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
@@ -34,11 +29,6 @@ export class AuthService {
     this.afAuth.authState.subscribe((user) => {
       // If authenticated...
       if (user) {
-        // // Set isAuthenticated to true
-        // this.isAuthenticated = true;
-        // // Send true to subject above
-        // this.authChange.next(true);
-
         // Dispatch action to set authenticated to true
         this.store.dispatch(new Auth.SetAuthenticated());
 
@@ -49,21 +39,13 @@ export class AuthService {
         // Dispatch action to set authenticated to false
         this.store.dispatch(new Auth.SetUnauthenticated());
 
-        // // Send false to subject above - picked up by nav bars
-        // this.authChange.next(false);
-
         // // Redirect to welcome page
         this.router.navigate(['/']);
-
-        // this.isAuthenticated = false;
       }
     });
   }
 
   registerUser(authData: AuthData) {
-    // // Set loading to true in UI service when login is called
-    // this.uiService.loadingStateChanged.next(true);
-
     // Dispatch to reducer to set loading to true
     this.store.dispatch(new UI.SetLoading());
     // Call create user function from FB - pass in email/PW
@@ -81,9 +63,6 @@ export class AuthService {
   }
 
   login(authData: AuthData) {
-    // // Set loading to true in UI service when login is called
-    // this.uiService.loadingStateChanged.next(true);
-
     this.store.dispatch(new UI.SetLoading());
 
     // Call sign in function on FB - pass in email/PW
@@ -91,11 +70,10 @@ export class AuthService {
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then((result) => {
         // Set loading to false
-        // this.uiService.loadingStateChanged.next(false);
+
         this.store.dispatch(new UI.StopLoading());
       })
       .catch((error) => {
-        // this.uiService.loadingStateChanged.next(false);
         this.store.dispatch(new UI.StopLoading());
         // Call function on UI service to show snackbar error - null=no action req'd
         this.uiService.showSnackbar(error.message, null);
@@ -106,9 +84,4 @@ export class AuthService {
     // Sign user out from FB - also invalidates token
     this.afAuth.auth.signOut();
   }
-
-  // isAuth() {
-  //   //   Returns true if user is authenticated
-  //   return this.isAuthenticated;
-  // }
 }

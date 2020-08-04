@@ -14,14 +14,6 @@ export class AuthGuard implements CanActivate {
   constructor(private store: Store<fromRoot.State>) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    // // Return true if user is authenticated - call isAuth function on service
-    // if (this.authService.isAuth()) {
-    //   return true;
-    //   //   Else if not authenticated, redirect to login
-    // } else {
-    //   this.router.navigate(['/login']);
-    // }
-
     // Get auth status from store - returns true if user is authenticated
     return this.store.select(fromRoot.getIsAuthenticated);
   }

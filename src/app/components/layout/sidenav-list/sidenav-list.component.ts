@@ -16,7 +16,6 @@ export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
 
   isAuth$: Observable<boolean>;
-  // authSubscription: Subscription;
 
   // Import authService & NGRX store as dependencies
   constructor(
@@ -25,14 +24,6 @@ export class SidenavListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // // Subscribe to authChange subject from service - receives auth status (true or false) whenever next is called from service
-    // this.authSubscription = this.authService.authChange.subscribe(
-    //   (authStatus) => {
-    //     // Set isAuth accordingly
-    //     this.isAuth = authStatus;
-    //   }
-    // );
-
     // Get auth status from store
     this.isAuth$ = this.store.select(fromRoot.getIsAuthenticated);
   }
@@ -47,9 +38,4 @@ export class SidenavListComponent implements OnInit {
     // call onClose function above to close sidenav
     this.onClose();
   }
-
-  // // Unsubscribe from subject when page is left
-  // ngOnDestroy() {
-  //   this.authSubscription.unsubscribe();
-  // }
 }

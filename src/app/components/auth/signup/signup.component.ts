@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { UIService } from '../../shared/ui.service';
-import { Subscription, Observable } from 'rxjs';
+
+import { Observable } from 'rxjs';
 
 import * as fromRoot from '../../../app.reducer';
 import { Store } from '@ngrx/store';
@@ -16,21 +16,15 @@ export class SignupComponent implements OnInit {
   maxDate;
 
   isLoading$: Observable<boolean>;
-  private loadingSubscription: Subscription;
 
   // Inject service & NGRX store as dependency
   constructor(
     private authService: AuthService,
-    private uiService: UIService,
+
     private store: Store<fromRoot.State>
   ) {}
 
   ngOnInit() {
-    // // Subscribe to loading emitter from UI service - will then toggle isLoading to true/false depending on result
-    // this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(
-    //   (res) => (this.isLoading = res)
-    // );
-
     // Get isLoading status from NGRX store
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
 
@@ -48,11 +42,3 @@ export class SignupComponent implements OnInit {
     });
   }
 }
-
-//   // Unsubscribe to loadingSubscription when page destroyed
-//   ngOnDestroy() {
-//     if (this.loadingSubscription) {
-//       this.loadingSubscription.unsubscribe();
-//     }
-//   }
-// }

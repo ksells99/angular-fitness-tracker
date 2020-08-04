@@ -31,7 +31,7 @@ export const getTrainingState = createFeatureSelector<fromTraining.State>(
 // Pick up getUiState from above, then the getIsLoading property
 export const getIsLoading = createSelector(getUiState, fromUi.getIsLoading);
 
-// Repeat for authenticated status
+// Repeat for others
 export const getIsAuthenticated = createSelector(
   getAuthState,
   fromAuth.getIsAuthenticated

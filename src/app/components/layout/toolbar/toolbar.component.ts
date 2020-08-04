@@ -15,7 +15,6 @@ export class ToolbarComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter<void>();
 
   isAuth$: Observable<boolean>;
-  // authSubscription: Subscription;
 
   // Import NGRX store & auth service as dependencies
   constructor(
@@ -24,14 +23,6 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // // Subscribe to authChange subject from service - receives auth status (true or false) whenever next is called from service
-    // this.authSubscription = this.authService.authChange.subscribe(
-    //   (authStatus) => {
-    //     // Set isAuth accordingly
-    //     this.isAuth = authStatus;
-    //   }
-    // );
-
     // Get authentication status from store
     this.isAuth$ = this.store.select(fromRoot.getIsAuthenticated);
   }
@@ -45,9 +36,4 @@ export class ToolbarComponent implements OnInit {
   onLogout() {
     this.authService.logout();
   }
-
-  // // Unsubscribe from subject when page is left
-  // ngOnDestroy() {
-  //   this.authSubscription.unsubscribe();
-  // }
 }

@@ -15,17 +15,6 @@ import { Store } from '@ngrx/store';
 
 @Injectable()
 export class TrainingService {
-  // // Subject for when an exercise is selected
-  // exerciseChanged = new Subject<Exercise>();
-
-  // exercisesChanged = new Subject<Exercise[]>();
-  // finishedExercisesChanged = new Subject<Exercise[]>();
-
-  // // Array of exercise types
-  // private availableExercises: Exercise[] = [];
-
-  // private runningExercise: Exercise;
-
   private firebaseSubs: Subscription[] = [];
 
   constructor(
@@ -60,11 +49,6 @@ export class TrainingService {
 
             // Dispatch setAvailableTypes and send result (exercise types) as payload
             this.store.dispatch(new Training.SetAvailableTypes(exercises));
-
-            // // Subscribe to obs. and set these as available exercises
-            // this.availableExercises = exercises;
-            // // Emit copy of array to be picked up by new-training component
-            // this.exercisesChanged.next([...this.availableExercises]);
           },
           (error) => {
             // If loading exercises fails, pass false into loadingState - in turn picked up by component to stop spinner
@@ -74,7 +58,6 @@ export class TrainingService {
               'Loading of available excerise types failed. Please try again later.',
               null
             );
-            // this.exercisesChanged.next(null);
           }
         )
     );
@@ -82,13 +65,6 @@ export class TrainingService {
 
   //   Called from new-training component - ID of selected type passed in
   startExercise(selectedId: string) {
-    // //   Map through above array and find the type the user selected - set as runningExcerise
-    // this.runningExercise = this.availableExercises.find(
-    //   (exercise) => exercise.id == selectedId
-    // );
-    // // Send copy of runningExercise to subject above - in turn picked up by training component
-    // this.exerciseChanged.next({ ...this.runningExercise });
-
     // Dispatch action - pass in ID of selected training type as payload
     this.store.dispatch(new Training.StartTraining(selectedId));
   }
@@ -109,10 +85,6 @@ export class TrainingService {
         // Dispatch action
         this.store.dispatch(new Training.StopTraining());
       });
-
-    // //   Set running and changed to null - ie. stop anything running
-    // this.runningExercise = null;
-    // this.exerciseChanged.next(null);
   }
 
   cancelExercise(progress: number) {
@@ -134,22 +106,14 @@ export class TrainingService {
         // Dispatch action
         this.store.dispatch(new Training.StopTraining());
       });
-
-    // //   Set running and changed to null - ie. stop anything running
-    // this.runningExercise = null;
-    // this.exerciseChanged.next(null);
   }
-
-  // getRunningExercise() {
-  //   //   Return copy of runningExercise
-  //   return { ...this.runningExercise };
-  // }
 
   getExerciseHistory() {
     const loggedInUserId = this.afAuth.auth.currentUser.uid;
     console.log(loggedInUserId);
     // Get data from savedExercies collection from Firebase - subscribe, returns the list
     this.firebaseSubs.push(
+      // Get only those belonging to the logged in user
       this.db
         .collection('savedExercises', (ref) =>
           ref.where('userId', '==', loggedInUserId)
@@ -157,9 +121,6 @@ export class TrainingService {
 
         .valueChanges()
         .subscribe((data: Exercise[]) => {
-          // // Emit data to subject
-          // this.finishedExercisesChanged.next(data);
-
           // Dispatch action - pass in history data from FB as payload
           this.store.dispatch(new Training.SetFinishedTrainings(data));
         })
