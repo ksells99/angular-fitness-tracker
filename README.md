@@ -6,7 +6,7 @@ The app is connected to a Firebase cloud database via Angular Firestore (for sto
 
 I built the application using Academind's Udemy Course, however I have expanded on the initial functionality by allowing users to only view their own exercise history, by implementing some Firebase rules along with new queries (the core project in the course allowed any user to view exercise history for all users).
 
-The app is hosted on Firebase Hosting and can be accessed here:
+The app is hosted on Firebase Hosting and can be accessed here: https://angular-fitness-tracker-c987b.web.app
 
 ![Showcase1](/showcase-1.png?raw=true "Showcase1")
 ![Showcase2](/showcase-2.png?raw=true "Showcase2")
